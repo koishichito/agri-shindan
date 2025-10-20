@@ -274,6 +274,30 @@ export default function PlantDiagnosis() {
                       <h3 className="font-semibold mb-2">予防</h3>
                       <p className="text-gray-700">{result.予防}</p>
                     </div>
+
+                    {result.参考情報 && result.参考情報.length > 0 && (
+                      <div className="border-t pt-4 mt-4">
+                        <h3 className="font-semibold mb-2">📚 参考情報（公的機関・研究機関）</h3>
+                        <div className="space-y-2">
+                          {result.参考情報.map((ref: any, index: number) => (
+                            <div key={index} className="bg-blue-50 p-3 rounded-lg">
+                              <a
+                                href={ref.URL}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-blue-600 hover:text-blue-800 font-semibold flex items-center gap-1"
+                              >
+                                {ref.タイトル}
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                </svg>
+                              </a>
+                              <p className="text-sm text-gray-600 mt-1">{ref.説明}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 )}
 

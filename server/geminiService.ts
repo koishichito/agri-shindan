@@ -24,6 +24,11 @@ export async function diagnosePlant(params: {
   対策: string[];
   予防: string;
   緊急度: string;
+  参考情報?: Array<{
+    タイトル: string;
+    URL: string;
+    説明: string;
+  }>;
 }> {
   const model = genAI.getGenerativeModel({ model: "gemini-2.5-pro" });
 
@@ -91,7 +96,7 @@ export async function diagnosePlant(params: {
 7. **対策の優先順位付け**: 緊急度に応じた対策を提示
 
 【出力形式】
-必ずJSON形式で以下を返答してください:
+JSON形式で以下を返答。参考情報には信頼できる公的機関の情報を含める:
 {
   "作物": "トマト",
   "診断": "灰色かび病(Botrytis cinerea)",
@@ -103,7 +108,19 @@ export async function diagnosePlant(params: {
     "【薬剤】必要に応じて殺菌剤(イプロジオン水和剤、フルジオキソニル水和剤等)を散布。ローテーション散布で耐性菌を防ぐ"
   ],
   "予防": "定期的な換気、過密植栽の回避、灌水時の葉濡れ防止、夜間の湿度管理(除湿機の使用)、剪定による風通しの改善",
-  "緊急度": "高"
+  "緊急度": "高",
+  "参考情報": [
+    {
+      "タイトル": "農林水産省 病害虫防除情報",
+      "URL": "https://www.maff.go.jp/j/syouan/syokubo/gaicyu/index.html",
+      "説明": "公的機関による病害虫の発生動向と防除方法"
+    },
+    {
+      "タイトル": "日本植物病名データベース",
+      "URL": "https://www.gene.affrc.go.jp/databases-micro_pl_diseases.php",
+      "説明": "日本植物病理学会による公式病名データベース"
+    }
+  ]
 }
 
 【信頼度の評価基準】
